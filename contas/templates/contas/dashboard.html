@@ -1,0 +1,63 @@
+{% extends 'contas/main.html' %}
+
+{% block content %}
+
+{% include 'contas/status.html' %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CLIENTES:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'cadastrar_cliente'%}">Cadastrar cliente</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Cliente</th>
+					<th>Telefone</th>
+				</tr>
+				{% for cl in clientes %}
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="{% url 'cliente' cl.id %}">View</a></td>
+						<td>{{cl.nome}}</td>
+						<td>{{cl.telefone}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>ÚLTIMOS 5 PEDIDOS</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'gerar_pedido'%}">Gerar pedido</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Produto</th>
+					<th>Data encomendada</th>
+					<th>Status</th>
+					<th>Atualizar</th>
+					<th>Remover</th>
+
+				</tr>
+				{% for pd in pedido %}
+					<tr>
+
+						<td>{{pd.produto}}</td>
+						<td>{{pd.data_publicacao}}</td>
+						<td>{{pd.status}}</td>
+						<td><a class = "btn btn-sm btn-info" href="{% url 'atualizar_pedido' pd.id %}">Atualizar</a></td>
+						<td><a class = "btn btn-sm btn-danger" href="{% url 'remover_pedido' pd.id %}">Remover</a></td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content %}
